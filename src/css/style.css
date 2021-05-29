@@ -1,0 +1,103 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.crm {
+    width: 500px;
+}
+
+.crm_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.crm_add {
+    font-size: 25px;
+}
+
+.crm_table {
+    width: 100%;
+    border: 1px rgb(187, 187, 187) solid;
+    border-radius: 5px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.crm_table td {
+    border-bottom: 1px #cccccc solid;
+    padding: 8px 0px;
+}
+
+.crm_table .crm_edit, .crm_delete {
+    font-size: 20px;
+    margin: 0px 3px;
+}
+
+.crm_add, .crm_edit, .crm_delete {
+    cursor: pointer;
+}
+
+.crm_modal {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* .crm_modal.active {
+    display: flex;
+} */
+
+.crm_form {
+    width: 300px;
+    overflow: auto;
+    background: #fff;
+    position: relative;
+    border: 1px #5f5f5f solid;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.crm_form .label {
+    position: relative;
+    font-size: 20px;
+}
+
+.crm_form input {
+    width: 300px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    font-size: 18px;
+}
+
+.crm_form .controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.crm_form .controls button {
+    width: 120px;
+    padding: 5px 10px;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.crm_form .error {
+    position: absolute;
+    width: 300px;
+    box-sizing: border-box;
+    background-color: brown;
+    color: #ffffff;
+    font-size: 13px;
+    text-align: center;
+}
