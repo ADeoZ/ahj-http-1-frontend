@@ -4,7 +4,7 @@ const server = 'http://ahj-http-1.herokuapp.com/';
 // const server = 'http://localhost:7070/';
 
 const clickme = document.querySelector('.test');
-clickme.addEventListener('click', (evt) => {
+clickme.addEventListener('click', () => {
   // const params = 'method=ticketById&id=4';
   const params = 'method=allTickets';
   const xhr = new XMLHttpRequest();
