@@ -42,3 +42,5 @@ postButton.addEventListener('click', (evt) => {
   });
   xhr.send(params);
 });
+
+console.log(server);
