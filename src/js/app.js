@@ -1,6 +1,6 @@
 // TODO: write code here
 
-const server = 'http://ahj-http-1.herokuapp.com/';
+const server = 'https://ahj-http-1.herokuapp.com/';
 // const server = 'http://localhost:7070/';
 
 const clickme = document.querySelector('.test');
