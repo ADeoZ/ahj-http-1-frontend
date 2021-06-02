@@ -1,14 +1,12 @@
-/* eslint-disable consistent-return */
 export default class Request {
-  constructor() {
-    // this.server = 'http://localhost:7070/';
-    this.server = 'https://ahj-http-1.herokuapp.com/';
+  constructor(serverURL) {
+    this.server = `${serverURL}tickets`;
   }
 
-  static get(params) {
+  get(params) {
     const xhr = new XMLHttpRequest();
     return new Promise((resolve, reject) => {
-      xhr.open('GET', `https://ahj-http-1.herokuapp.com/?${params}`);
+      xhr.open('GET', `${this.server}${params}`);
       xhr.addEventListener('load', () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
@@ -23,63 +21,58 @@ export default class Request {
     });
   }
 
-  static post(params, fields) {
+  post(method, params, fields) {
     const xhr = new XMLHttpRequest();
-    return new Promise((resolve, reject) => {
-      xhr.open('POST', `https://ahj-http-1.herokuapp.com/?${params}`);
+    return new Promise((resolve) => {
+      xhr.open(method, `${this.server}${params}`);
       xhr.addEventListener('load', () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            resolve(xhr.response);
-          } catch (e) {
-          // console.error(e);
-            reject(e);
-          }
+        if (xhr.status === 204) {
+          resolve(xhr.response);
         }
       });
       xhr.send(fields);
     });
   }
 
-  static allTickets() {
-    const result = Request.get('method=allTickets');
+  allTickets() {
+    const result = this.get('?method=allTickets');
     return result;
   }
 
-  static ticketById(id) {
-    const result = Request.get(`method=ticketById&id=${id}`);
+  ticketById(id) {
+    const result = this.get(`?method=ticketById&id=${id}`);
     return result;
   }
 
-  static createTicket(name, description, status) {
+  createTicket(name, description, status) {
     const fields = new URLSearchParams();
     fields.append('name', name);
     fields.append('description', description);
     fields.append('status', status);
-    const result = Request.post('method=createTicket', fields);
+    const result = this.post('POST', '?method=createTicket', fields);
     return result;
   }
 
-  static removeById(id) {
+  removeById(id) {
     const fields = new URLSearchParams();
     fields.append('curid', id);
-    const result = Request.post('method=removeTicket', fields);
+    const result = this.post('DELETE', `/${id}`, fields);
     return result;
   }
 
-  static changeStatus(id) {
+  changeStatus(id) {
     const fields = new URLSearchParams();
     fields.append('curid', id);
-    const result = Request.post('method=ticketStatus', fields);
+    const result = this.post('PUT', `/${id}`, fields);
     return result;
   }
 
-  static editTicket(id, name, description) {
+  editTicket(id, name, description) {
     const fields = new URLSearchParams();
     fields.append('curid', id);
     fields.append('name', name);
     fields.append('description', description);
-    const result = Request.post('method=editTicket', fields);
+    const result = this.post('PUT', `/${id}`, fields);
     return result;
   }
 }

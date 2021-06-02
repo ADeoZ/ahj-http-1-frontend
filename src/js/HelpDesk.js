@@ -8,6 +8,7 @@ export default class HelpDesk {
     this.add = element.querySelector('.helpdesk__add');
 
     this.modal = new Modal();
+    this.request = new Request('http://localhost:7070/');
     this.items = [];
 
     this.addItem = this.addItem.bind(this);
@@ -25,7 +26,7 @@ export default class HelpDesk {
   }
 
   showTable() {
-    const itemsRequest = Request.allTickets();
+    const itemsRequest = this.request.allTickets();
     itemsRequest.then((resolve) => {
       this.items = [];
       this.table.innerHTML = '';
@@ -46,13 +47,11 @@ export default class HelpDesk {
   addItem() {
     this.modal.closeModal();
 
-    const createRequest = Request.createTicket(
+    const createRequest = this.request.createTicket(
       this.modal.inputName.value, this.modal.inputDescription.value, 0,
     );
-    createRequest.then((resolve) => {
-      if (resolve === 'Ok') {
-        this.showTable();
-      }
+    createRequest.then(() => {
+      this.showTable();
     });
   }
 
@@ -72,7 +71,7 @@ export default class HelpDesk {
     }
     if (event.target.classList.contains('helpdesk__item__edit')) {
       if (!item.description) {
-        const createRequest = Request.ticketById(item.id);
+        const createRequest = this.request.ticketById(item.id);
         createRequest.then((resolve) => {
           const { description } = JSON.parse(resolve);
           item.description = description;
@@ -92,40 +91,33 @@ export default class HelpDesk {
   editItem(item) {
     this.modal.closeModal();
 
-    const createRequest = Request.editTicket(
+    const createRequest = this.request.editTicket(
       item.id, this.modal.inputName.value, this.modal.inputDescription.value,
     );
-    createRequest.then((resolve) => {
-      if (resolve === 'Ok') {
-        this.showTable();
-      }
+    createRequest.then(() => {
+      this.showTable();
     });
   }
 
   editItemStatus(id) {
-    const createRequest = Request.changeStatus(id);
-    createRequest.then((resolve) => {
-      if (resolve === 'Ok') {
-        this.showTable();
-      }
+    const createRequest = this.request.changeStatus(id);
+    createRequest.then(() => {
+      this.showTable();
     });
   }
 
   deleteItem(id) {
     this.modal.closeModal();
 
-    const createRequest = Request.removeById(id);
-    createRequest.then((resolve) => {
-      if (resolve === 'Ok') {
-        this.showTable();
-      }
+    const createRequest = this.request.removeById(id);
+    createRequest.then(() => {
+      this.showTable();
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   showItemDescription(item) {
     if (!item.description) {
-      const createRequest = Request.ticketById(item.id);
+      const createRequest = this.request.ticketById(item.id);
       createRequest.then((resolve) => {
         const description = document.createElement('div');
         description.classList.add('helpdesk__item__description');
