@@ -8,7 +8,7 @@ export default class HelpDesk {
     this.add = element.querySelector('.helpdesk__add');
 
     this.modal = new Modal();
-    this.request = new Request('http://localhost:7070/');
+    this.request = new Request('https://ahj-http-1.herokuapp.com/');
     this.items = [];
 
     this.addItem = this.addItem.bind(this);
